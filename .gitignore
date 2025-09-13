@@ -1,0 +1,17 @@
+# Virtual environments
+Selenium-env
+/venv/**
+venv/
+env/
+ENV/
+
+# System files
+.DS_store
+.DS_Store
+
+# IDE and editor files
+.vscode/
+
+scraper.py
+test_api.py
+__pycache__/

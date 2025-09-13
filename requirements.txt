@@ -1,0 +1,14 @@
+# Core web framework (FastAPI)
+fastapi>=0.111,<1.0
+
+# ASGI server
+uvicorn[standard]>=0.30,<1.0
+
+# HTTP client
+requests>=2.31.0,<3.0.0
+
+# HTML/XML parsing
+lxml>=4.9.3,<6.0.0
+
+# Testing utilities (optional, helpful for local runs)
+# httpx
