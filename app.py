@@ -159,7 +159,7 @@ class MakingCosmeticsScraper:
         list_page_url = "https://makingcosmetics.com/Ingredients-A-Z_ep_1.html?lang=default"
         
         try:
-            logger.info("Fetching comprehensive product list from Ingredients A-Z page...")
+            # logger.info("Fetching comprehensive product list from Ingredients A-Z page...")
             response = self.session.get(list_page_url, timeout=15)
             response.raise_for_status()
             tree = html.fromstring(response.content)
@@ -307,10 +307,10 @@ class MakingCosmeticsScraper:
                     
                     # Method 1: Call Product-Variation API for dynamic pricing
                     if variation_url and 'Product-Variation' in variation_url:
-                        logger.debug(f"Calling variation API for size {size}")
+                        # logger.debug(f"Calling variation API for size {size}")
                         option_price = self.call_product_variation_api(variation_url)
-                        if option_price:
-                            logger.debug(f"Got price {option_price} for size {size} via API")
+                        # if option_price:
+                        #     logger.debug(f"Got price {option_price} for size {size} via API")
                     
                     # Method 2: Fallback to data attributes  
                     if not option_price:
@@ -717,7 +717,7 @@ class MakingCosmeticsScraper:
                             product['sizes'].append(size_text.strip())
             
             sources_info = f" | Sources: {', '.join(product['price_sources'])}" if product['price_sources'] else ""
-            logger.info(f"Scraped product: {product['name']} | Sizes: {len(product['sizes'])} | Prices: {len(product.get('prices', {}))}{sources_info}")
+            # logger.info(f"Scraped product: {product['name']} | Sizes: {len(product['sizes'])} | Prices: {len(product.get('prices', {}))}{sources_info}")
             return product
             
         except Exception as e:
@@ -730,11 +730,11 @@ class MakingCosmeticsScraper:
         Args:
             limit: Optional cap on number of product links to process (testing)
         """
-        logger.info("Starting to scrape all products...")
+        # logger.info("Starting to scrape all products...")
         
         # Get all product links
         product_links = self.get_all_product_links()
-        logger.info(f"Found {len(product_links)} total product links")
+        # logger.info(f"Found {len(product_links)} total product links")
 
         # Optional limit for testing
         if limit is not None and isinstance(limit, int) and limit > 0:
@@ -753,20 +753,20 @@ class MakingCosmeticsScraper:
                 # Be respectful with requests
                 time.sleep(1)
                 
-                if (i + 1) % 10 == 0:
-                    logger.info(f"Scraped {scraped_count} products so far...")
+                # if (i + 1) % 10 == 0:
+                #     logger.info(f"Scraped {scraped_count} products so far...")
                     
             except Exception as e:
                 logger.error(f"Error processing {product_url}: {str(e)}")
                 continue
                 
-        logger.info(f"Finished scraping! Total products: {len(self.products)}")
+        # logger.info(f"Finished scraping! Total products: {len(self.products)}")
         
         # Log statistics
         products_with_sizes = len([p for p in self.products if p.get('sizes')])
         products_with_prices = len([p for p in self.products if p.get('price_info') or p.get('prices')])
-        logger.info(f"Products with sizes: {products_with_sizes}/{len(self.products)}")
-        logger.info(f"Products with prices: {products_with_prices}/{len(self.products)}")
+        # logger.info(f"Products with sizes: {products_with_sizes}/{len(self.products)}")
+        # logger.info(f"Products with prices: {products_with_prices}/{len(self.products)}")
         
         return self.products
 
